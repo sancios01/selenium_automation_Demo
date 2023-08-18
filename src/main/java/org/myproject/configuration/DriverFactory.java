@@ -4,32 +4,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v95.log.Log;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxDriverService;
 import org.openqa.selenium.firefox.GeckoDriverService;
 
 public class DriverFactory {
-    private static WebDriver driver;
     private static DevTools chromeDevTools;
 
-    public static WebDriver getDriver() {
-        if (driver == null) {
-            String browser = System.getProperty("browser", "chrome");
-            switch (browser) {
-                case "chrome":
-                    driver = createChromeDriver();
-                    break;
-                case "firefox":
-                    driver = createFirefoxDriver();
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid browser name: " + browser);
-            }
-//            setupDevTools(driver);
+    public static WebDriver getDriver(String browser) {
+        switch (browser) {
+            case "chrome":
+                return createChromeDriver();
+            case "chrome-V2":
+                return setupDevToolsChrome();
+            case "firefox":
+                return createFirefoxDriver();
+            default:
+                throw new IllegalArgumentException("Invalid browser name: " + browser);
         }
-        return driver;
     }
 
     private static WebDriver createChromeDriver() {
@@ -39,29 +31,31 @@ public class DriverFactory {
         ChromeDriverService service = new ChromeDriverService.Builder()
                 .withLogOutput(System.out)
                 .build();
-
-
         return new ChromeDriver(service);
     }
 
     private static WebDriver createFirefoxDriver() {
-        FirefoxDriverService service = new GeckoDriverService.Builder()
+        var service = new GeckoDriverService.Builder()
                 .withLogOutput(System.out)
                 .build();
-        // Add any desired Firefox options here
+
         return new FirefoxDriver(service);
     }
 
-    private static void setupDevTools(WebDriver driver) {
-        chromeDevTools = ((HasDevTools) driver).getDevTools();
-        chromeDevTools.createSession();
+    private static WebDriver setupDevToolsChrome() {
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/webdriver/chromedriver_mac64/chromedriver");
+        var service = new ChromeDriverService.Builder()
+                .build();
+        var driver = new ChromeDriver(service);
 
-        // Enable DevTools Log domain and capture log entries
+        chromeDevTools = driver.getDevTools();
+        chromeDevTools.createSession();
         chromeDevTools.send(Log.enable());
         chromeDevTools.addListener(Log.entryAdded(),
                 logEntry -> {
                     System.out.println("log: "+logEntry.getText());
                     System.out.println("level: "+logEntry.getLevel());
                 });
+        return driver;
     }
 }

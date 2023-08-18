@@ -2,6 +2,7 @@ package org.myproject.utils;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+
 import static io.restassured.RestAssured.given;
 
 public class ApiUtils {
@@ -18,21 +19,18 @@ public class ApiUtils {
     }
 
     public Response sendGetRequest(String endpoint) {
-        // Check if the API key is set in the ApiConfig instance, otherwise use the default key
-        String apiKey = apiConfig.getApiKey() != null ? apiConfig.getApiKey() : getDefaultApiKey();
+        var giv = given()
+                 .header("api_key", "DEFAULT_API_KEY")
+                 .when();
 
-        lastResponse = given()
-                .header("api_key", apiKey)
-                .when().get(endpoint);
-        return lastResponse;
+        if (apiConfig.getApiKey() != null){
+            giv = giv.header("api_key", apiConfig.getApiKey());
+        }
+
+        return giv.get(endpoint);
     }
 
     public Response getLastResponse() {
-        return lastResponse;
-    }
-
-    private String getDefaultApiKey() {
-        // Return the default API key here
-        return "DEFAULT_API_KEY";
+        return this.lastResponse;
     }
 }

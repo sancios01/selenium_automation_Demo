@@ -10,7 +10,7 @@ public class TestSetupUtils {
 
     @Before("@CustomHook")
     public static void beforeScenario() {
-        driver = DriverFactory.getDriver();
+        driver = DriverFactory.getDriver("chrome");
     }
 
     @After("@CustomHook")

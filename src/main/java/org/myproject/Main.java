@@ -10,9 +10,6 @@ public class Main {
     private static DevTools chromeDevTools;
 
     public static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/webdriver/chromedriver_mac64/chromedriver");
-        System.setProperty("webdriver.chrome.verboseLogging", "true");
-
         driver = new ChromeDriver();
         chromeDevTools = driver.getDevTools();
         chromeDevTools.createSession();

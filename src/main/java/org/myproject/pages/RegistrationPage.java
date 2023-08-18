@@ -22,7 +22,7 @@ public class RegistrationPage {
     private By nextButton = By.id("submit");
 
     public RegistrationPage() {
-        this.driver = DriverFactory.getDriver();
+        this.driver = DriverFactory.getDriver("chrome-V2");
         this.wait =  new WebDriverWait(driver, Duration.ofSeconds(15)); // Adjust the wait time as needed
     }
 
