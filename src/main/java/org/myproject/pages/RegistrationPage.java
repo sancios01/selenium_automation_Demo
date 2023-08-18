@@ -1,6 +1,6 @@
 package org.myproject.pages;
 
-import org.myproject.utils.CommonUtils;
+import org.myproject.configuration.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,7 +22,7 @@ public class RegistrationPage {
     private By nextButton = By.id("submit");
 
     public RegistrationPage() {
-        this.driver = CommonUtils.getDriver();
+        this.driver = DriverFactory.getDriver();
         this.wait =  new WebDriverWait(driver, Duration.ofSeconds(15)); // Adjust the wait time as needed
     }
 
@@ -85,4 +85,8 @@ public class RegistrationPage {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Confirmă numărul de telefon']")));
         return element.isDisplayed();
     }
+
+
+
+
 }
