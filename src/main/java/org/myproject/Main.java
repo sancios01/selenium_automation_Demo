@@ -2,7 +2,7 @@ package org.myproject;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v95.log.Log;
+import org.openqa.selenium.devtools.v112.log.Log;
 
 
 public class Main {
@@ -10,6 +10,7 @@ public class Main {
     private static DevTools chromeDevTools;
 
     public static void main(String[] args) {
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/webdriver/chromedriver_mac64/chromedriver");
         driver = new ChromeDriver();
         chromeDevTools = driver.getDevTools();
         chromeDevTools.createSession();

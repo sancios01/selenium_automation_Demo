@@ -30,3 +30,5 @@ A step-by-step guide on how to set up the project on a local machine.
 1. Clone the repository:
    ```sh
    git clone https://github.com/your-username/your-repo.git
+
+https://applitools.com/blog/selenium-4-chrome-devtools/

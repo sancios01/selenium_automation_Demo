@@ -1,5 +1,6 @@
 package org.myproject.stepdefinitions;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -7,6 +8,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.myproject.pages.RegistrationPage;
 
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class RegistrationStepDefinitions {
@@ -67,5 +71,13 @@ public class RegistrationStepDefinitions {
     @Then("I should see an error message for the weak password")
     public void verifyWeakPasswordErrorMessage() {
         assertTrue(registrationPage.isWeakPasswordErrorMessageDisplayed());
+    }
+
+    @Then("I get next error:")
+    public void errorMs(DataTable testData){
+        Map<String, String> data = testData.asMap(String.class, String.class);
+        data.get("error message");
+
+        assertEquals(registrationPage.getWebLogs(), data.get("error message"));
     }
 }

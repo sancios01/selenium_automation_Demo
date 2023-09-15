@@ -10,15 +10,16 @@ import org.openqa.selenium.firefox.GeckoDriverService;
 
 public class DriverFactory {
     private static DevTools chromeDevTools;
+    private static WebDriver driver  ;
 
     public static WebDriver getDriver(String browser) {
         switch (browser) {
             case "chrome":
-                return createChromeDriver();
+                return driver = createChromeDriver();
             case "chrome-V2":
-                return setupDevToolsChrome();
+                return driver = setupDevToolsChrome();
             case "firefox":
-                return createFirefoxDriver();
+                return driver = createFirefoxDriver();
             default:
                 throw new IllegalArgumentException("Invalid browser name: " + browser);
         }
@@ -53,9 +54,17 @@ public class DriverFactory {
         chromeDevTools.send(Log.enable());
         chromeDevTools.addListener(Log.entryAdded(),
                 logEntry -> {
-                    System.out.println("log: "+logEntry.getText());
-                    System.out.println("level: "+logEntry.getLevel());
+                    System.out.println("Log: "+logEntry.getText());
+                    System.out.println("Level: "+logEntry.getLevel());
                 });
         return driver;
     }
+    public static void quitDriver() {
+        if (driver != null) {
+            driver.close();
+            driver.quit(); // Use quit() to close all windows and tabs
+            driver = null;
+        }
+    }
+
 }

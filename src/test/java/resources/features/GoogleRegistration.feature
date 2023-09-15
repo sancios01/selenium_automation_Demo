@@ -1,13 +1,15 @@
 Feature: Google Registration
 
-  Scenario: Successful registration with valid information
+  @CustomHook
+  Scenario: Unsuccessful registration with invalid information
     Given I am on the Google registration page
-    When I enter my first name as "John"
+    And I enter my first name as "John"
     And I enter my last name as "Doe"
     And I enter my email as "johne90@mail.ru"
     And I enter my password as "password_+123"
-#    And I enter my Confirm Passwd as "password_+123"
-    And I click on the next button
+    When I click on the next button
+    Then I get next error:
+        | error message | Email address is already in use |
 
 
 #    Then I should see the next step of the registration process

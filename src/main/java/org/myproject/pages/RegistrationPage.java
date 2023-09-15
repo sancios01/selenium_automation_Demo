@@ -4,6 +4,7 @@ import org.myproject.configuration.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -20,6 +21,7 @@ public class RegistrationPage {
     private By passwordInput = By.id("password");
     private By confirmPasswd = By.name("ConfirmPasswd");
     private By nextButton = By.id("submit");
+    private By errorMs = By.id("error");
 
     public RegistrationPage() {
         this.driver = DriverFactory.getDriver("chrome-V2");
@@ -87,6 +89,15 @@ public class RegistrationPage {
     }
 
 
+    public String getWebLogs(){
+        // Cast the driver to a ChromeDriver
+        var driver = (ChromeDriver) this.driver;
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMs));
+
+        WebElement e = driver.findElement(By.id("error"));
+         return e.getText();
+        }
 
 }
