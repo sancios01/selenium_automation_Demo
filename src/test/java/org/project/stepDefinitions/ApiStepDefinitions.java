@@ -1,4 +1,4 @@
-package org.myproject.stepdefinitions;
+package org.project.stepDefinitions;
 
 import org.project.utils.ApiConfig;
 import org.project.utils.ApiUtils;

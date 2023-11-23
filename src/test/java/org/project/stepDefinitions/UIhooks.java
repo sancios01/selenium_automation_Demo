@@ -1,4 +1,4 @@
-package org.myproject.stepdefinitions;
+package org.project.stepDefinitions;
 
 import io.cucumber.java.After;
 import org.openqa.selenium.WebDriver;
