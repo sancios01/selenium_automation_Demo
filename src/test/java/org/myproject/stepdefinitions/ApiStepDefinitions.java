@@ -1,7 +1,7 @@
 package org.myproject.stepdefinitions;
 
-import org.myproject.utils.ApiConfig;
-import org.myproject.utils.ApiUtils;
+import org.project.utils.ApiConfig;
+import org.project.utils.ApiUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

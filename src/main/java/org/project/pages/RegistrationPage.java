@@ -1,6 +1,6 @@
-package org.myproject.pages;
+package org.project.pages;
 
-import org.myproject.configuration.DriverFactory;
+import org.project.configuration.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

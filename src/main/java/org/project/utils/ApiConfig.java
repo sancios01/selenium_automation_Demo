@@ -1,4 +1,4 @@
-package org.myproject.utils;
+package org.project.utils;
 
 public class ApiConfig {
     private String apiKey;

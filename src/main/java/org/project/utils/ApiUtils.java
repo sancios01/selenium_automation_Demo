@@ -1,4 +1,4 @@
-package org.myproject.utils;
+package org.project.utils;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;

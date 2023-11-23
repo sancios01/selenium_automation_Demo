@@ -6,8 +6,8 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features",
-        glue = {"org.myproject.stepdefinitions","org.myproject.runners"},
+        features = "classpath:src/test/resources/features",
+        glue = {"org.myproject.stepdefinitions","org.project.utils","org.myproject.runners"},
         tags = "@Regression",
         plugin = {"pretty",
                 "html:target/CucumberTestReport.html",

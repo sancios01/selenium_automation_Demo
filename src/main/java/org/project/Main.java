@@ -1,4 +1,4 @@
-package org.myproject;
+package org.project;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;

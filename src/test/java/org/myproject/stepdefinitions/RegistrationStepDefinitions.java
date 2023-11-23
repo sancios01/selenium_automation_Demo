@@ -6,7 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.myproject.pages.RegistrationPage;
+import org.project.pages.RegistrationPage;
 
 import java.util.Map;
 
