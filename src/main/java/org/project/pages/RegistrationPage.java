@@ -1,12 +1,12 @@
 package org.project.pages;
 
-import org.project.configuration.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.project.configuration.DriverFactory;
 
 import java.time.Duration;
 
@@ -32,6 +32,9 @@ public class RegistrationPage {
         driver.get("https://thinking-tester-contact-list.herokuapp.com/addUser");
     }
 
+    public void navigateToHomePage() {
+        driver.get("https://thinking-tester-contact-list.herokuapp.com");
+    }
     public void enterText(By locator, String text) {
         WebElement element = driver.findElement(locator);
         element.clear();

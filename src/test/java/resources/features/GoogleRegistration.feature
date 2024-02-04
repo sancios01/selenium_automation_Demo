@@ -13,10 +13,11 @@ Feature: Google Registration
         | error message | Email address is already in use |
 
 
-#    Then I should see the next step of the registration process
-#
-#  Scenario: Registration with missing email
-#    Given I am on the Google registration page
+  Scenario: Registration with missing email
+    Given I am on the Home page
+    And I enter credential for the user "user1@example.com"
+
+#    And I am on the Google registration page
 #    When I enter my first name as "John"
 #    And I enter my last name as "Doe"
 #    And I enter my password as "password123"

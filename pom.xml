@@ -9,16 +9,15 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>17.0.2</java.version>
+        <java.version>21.0.2</java.version>
         <maven.compiler.source>3.9.2</maven.compiler.source>
         <maven.compiler.target>3.9.2</maven.compiler.target>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>1.8</maven.compiler.target>
 
         <log4j.version>2.21.1</log4j.version>
-        <cucumber.version>7.14.0</cucumber.version>
-        <selenium.version>4.15.0</selenium.version>
+        <cucumber.version>7.15.0</cucumber.version>
+        <selenium.version>4.17.0</selenium.version>
     </properties>
 
     <dependencies>
@@ -44,13 +43,13 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.6.2</version>
+            <version>5.6.3</version>
         </dependency>
         <!---->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-devtools-v112</artifactId>
-            <version>4.10.0</version>
+            <artifactId>selenium-devtools-v85</artifactId>
+            <version>4.17.0</version>
         </dependency>
 
         <dependency>
@@ -120,13 +119,6 @@
             <version>1.14.0</version>
         </dependency>
         <!---->
-
-        <!--         Apache Common-->
-        <dependency>
-            <groupId>org.apache.directory.studio</groupId>
-            <artifactId>org.apache.commons.io</artifactId>
-            <version>2.4</version>
-        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -206,58 +198,62 @@
                     <target>17</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
                 <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
-                    <includes>
-                        <include>"**/Step*.java"</include>
-                    </includes>
+                    <systemPropertyVariables>
+                        <extent.reporter.spark.start>true</extent.reporter.spark.start>
+                        <extent.reporter.spark.out>Reports/Spark.html</extent.reporter.spark.out>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>net.masterthought</groupId>
-                <artifactId>maven-cucumber-reporting</artifactId>
-                <version>5.7.5</version>
-                <executions>
-                    <execution>
-                        <id>execution</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <projectName>cucumberReporting</projectName>
-                            <!-- optional, per documentation set this to "true" to bypass generation of Cucumber Reports entirely, defaults to false if not specified -->
-                            <skip>false</skip>
-                            <!-- output directory for the generated report -->
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <!-- optional, defaults to outputDirectory if not specified -->
-                            <inputDirectory>${project.build.directory}</inputDirectory>
-                            <jsonFiles>
-                                <!-- supports wildcard or name pattern -->
-                                <param>**/*.json</param>
-                            </jsonFiles>
-                            <!-- optional, defaults to outputDirectory if not specified -->
-                            <!--                   <classificationDirectory>${project.build.directory}/classifications</classificationDirectory> -->
-                            <!--                   <classificationFiles> -->
-                            <!--                      supports wildcard or name pattern -->
-                            <!--                      <param>sample.properties</param> -->
-                            <!--                      <param>other.properties</param> -->
-                            <!--                   </classificationFiles> -->
-                            <!--    <parallelTesting>false</parallelTesting>-->
-                            <!-- optional, set true to group features by its Ids -->
-                            <mergeFeaturesById>false</mergeFeaturesById>
-                            <!-- optional, set true to get a final report with latest results of the same test from different test runs -->
-                            <mergeFeaturesWithRetest>false</mergeFeaturesWithRetest>
-                            <!-- optional, set true to fail build on test failures -->
-                            <checkBuildResult>false</checkBuildResult>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
+<!--            trebuie de fixat generarea de json aici aparea error la compilare-->
+<!--            <plugin>-->
+<!--                <groupId>net.masterthought</groupId>-->
+<!--                <artifactId>maven-cucumber-reporting</artifactId>-->
+<!--                <version>5.7.5</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>execution</id>-->
+<!--                        <phase>verify</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <projectName>cucumberReporting</projectName>-->
+<!--                            &lt;!&ndash; optional, per documentation set this to "true" to bypass generation of Cucumber Reports entirely, defaults to false if not specified &ndash;&gt;-->
+<!--                            <skip>false</skip>-->
+<!--                            &lt;!&ndash; output directory for the generated report &ndash;&gt;-->
+<!--                            <outputDirectory>${project.build.directory}</outputDirectory>-->
+<!--                            &lt;!&ndash; optional, defaults to outputDirectory if not specified &ndash;&gt;-->
+<!--                            <inputDirectory>${project.build.directory}</inputDirectory>-->
+<!--                            <jsonFiles>-->
+<!--                                &lt;!&ndash; supports wildcard or name pattern &ndash;&gt;-->
+<!--                                <param>**/*.json</param>-->
+<!--                            </jsonFiles>-->
+<!--                            &lt;!&ndash; optional, defaults to outputDirectory if not specified &ndash;&gt;-->
+<!--                            &lt;!&ndash;                   <classificationDirectory>${project.build.directory}/classifications</classificationDirectory> &ndash;&gt;-->
+<!--                            &lt;!&ndash;                   <classificationFiles> &ndash;&gt;-->
+<!--                            &lt;!&ndash;                      supports wildcard or name pattern &ndash;&gt;-->
+<!--                            &lt;!&ndash;                      <param>sample.properties</param> &ndash;&gt;-->
+<!--                            &lt;!&ndash;                      <param>other.properties</param> &ndash;&gt;-->
+<!--                            &lt;!&ndash;                   </classificationFiles> &ndash;&gt;-->
+<!--                            &lt;!&ndash;    <parallelTesting>false</parallelTesting>&ndash;&gt;-->
+<!--                            &lt;!&ndash; optional, set true to group features by its Ids &ndash;&gt;-->
+<!--                            <mergeFeaturesById>false</mergeFeaturesById>-->
+<!--                            &lt;!&ndash; optional, set true to get a final report with latest results of the same test from different test runs &ndash;&gt;-->
+<!--                            <mergeFeaturesWithRetest>false</mergeFeaturesWithRetest>-->
+<!--                            &lt;!&ndash; optional, set true to fail build on test failures &ndash;&gt;-->
+<!--                            <checkBuildResult>false</checkBuildResult>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
         </plugins>
     </build>
 

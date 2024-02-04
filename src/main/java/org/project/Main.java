@@ -2,7 +2,7 @@ package org.project;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v112.log.Log;
+import org.openqa.selenium.devtools.v85.log.Log;
 
 
 public class Main {

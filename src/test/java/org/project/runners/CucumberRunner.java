@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
         glue = {"org.project.stepDefinitions","org.project.utils"},
         tags = "@Regression",
         plugin = {"pretty",
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
                 "html:target/CucumberTestReport.html",
                 "json:target/CucumberTestReport.json"},
         stepNotifications = true
