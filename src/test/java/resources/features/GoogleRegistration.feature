@@ -1,7 +1,7 @@
 @Regression
+@QuitDriver
 Feature: Google Registration
 
-  @CustomHook
   Scenario: Unsuccessful registration with invalid information
     Given I am on the Google registration page
     And I enter my first name as "John"
@@ -12,10 +12,10 @@ Feature: Google Registration
     Then I get next error:
         | error message | Email address is already in use |
 
-
   Scenario: Registration with missing email
     Given I am on the Home page
     And I enter credential for the user "user1@example.com"
+    And I click on the submit bottom
 
 #    And I am on the Google registration page
 #    When I enter my first name as "John"

@@ -1,5 +1,6 @@
 package org.project.configuration;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -10,7 +11,7 @@ import org.openqa.selenium.firefox.GeckoDriverService;
 
 public class DriverFactory {
     private static DevTools chromeDevTools;
-    private static WebDriver driver  ;
+    private static WebDriver driver;
 
     public static WebDriver getDriver(String browser) {
         switch (browser) {
@@ -26,9 +27,7 @@ public class DriverFactory {
     }
 
     private static WebDriver createChromeDriver() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/webdriver/chromedriver_mac64/chromedriver");
-        System.setProperty("webdriver.chrome.verboseLogging", "true");
-
+        WebDriverManager.chromedriver().setup(); // Use WebDriverManager to set up ChromeDriver
         ChromeDriverService service = new ChromeDriverService.Builder()
                 .withLogOutput(System.out)
                 .build();
@@ -62,9 +61,8 @@ public class DriverFactory {
     public static void quitDriver() {
         if (driver != null) {
             driver.close();
-            driver.quit(); // Use quit() to close all windows and tabs
+            driver.quit();
             driver = null;
         }
     }
-
 }

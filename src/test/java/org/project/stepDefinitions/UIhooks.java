@@ -2,6 +2,7 @@ package org.project.stepDefinitions;
 
 import io.cucumber.java.After;
 import org.openqa.selenium.WebDriver;
+import org.project.api_testing.WireMockUtil;
 import org.project.configuration.DriverFactory;
 
 public class UIhooks {
@@ -12,10 +13,14 @@ public class UIhooks {
 ////        driver = DriverFactory.getDriver("chrome");
 //    }
 
-    @After("@CustomHook")
+    @After("@QuitDriver")
     public static void afterScenario() {
         DriverFactory.quitDriver();
     }
 
+    @After("@StopWireMock")
+    public static void closeWiremock() {
+        WireMockUtil.stopServer();
+    }
 
 }

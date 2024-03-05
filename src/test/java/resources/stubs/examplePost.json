@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/api/resource",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "application/json"
+      },
+      "Authorization": {
+        "contains": "Bearer"
+      },
+      "Custom-Header": {
+        "equalTo": "CustomValue"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalToJson": {
+          "key": "value"
+        }
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": "Response body",
+    "headers": {
+      "Custom-Response-Header": "ResponseCustomValue"
+    }
+  }
+}

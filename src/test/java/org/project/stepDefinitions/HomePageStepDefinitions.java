@@ -1,5 +1,6 @@
 package org.project.stepDefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
@@ -38,6 +39,11 @@ public class HomePageStepDefinitions {
 
         registrationPage.enterEmail(username);
         registrationPage.enterPassword(password);
-
     }
+
+    @And("I click on the submit bottom")
+    public void clickNextButton() {
+        registrationPage.clickNextButton();
+    }
+
 }
