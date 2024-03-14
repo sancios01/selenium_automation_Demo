@@ -10,15 +10,22 @@ Feature: WireMock Testing
   Scenario: Mocking a POST request with headers and body
     Given WireMock server is running with mappings from "src/test/java/resources/stubs/examplePost.json"
     When I send a "POST" request to the endpoint "/api/resource" with headers and body:
-      | Header Name    | Header Value       |
-      | Content-Type   | application/json   |
-      | Authorization  | Bearer             |
-      | Custom-Header  | CustomValue        |
+      | Header Name   | Header Value     |
+      | Content-Type  | application/json |
+      | Authorization | Bearer           |
+      | Custom-Header | CustomValue      |
       # Empty row to indicate body parameters start here
-      |                |                    |
-      | key            | value              |
+      |               |                  |
+      | key           | value            |
     Then the response status code should be 200
-    And the response body should contain "Response body"
+    And the response body should contain:
+      | key1                     | value1      |
+      | key2.nestedKey           | nestedValue |
+      | key3[0]                  | item1       |
+      | key3[1]                  | item2       |
+      | key3[2]                  | item3       |
+      | key4.subArray[0].subKey1 | subValue1   |
+      | key4.subArray[1].subKey2 | subValue2   |
     And the response should have header "Custom-Response-Header" with value "ResponseCustomValue"
 
 #  Scenario: Get Pet by ID

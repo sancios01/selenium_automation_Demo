@@ -4,6 +4,7 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.project.api_testing.WireMockUtil;
 import org.project.utils.ApiConfig;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertEquals;
@@ -71,6 +73,7 @@ public class ApiStepDefinitions {
 
     @When("I send a {string} request to the endpoint {string} with headers and body:")
     public void sendHttpRequestWithHeadersAndBody(String method, String endpoint, DataTable dataTable) {
+        Response response;
         Map<String, String> headers = new HashMap<>();
         Map<String, String> body = new HashMap<>();
         boolean bodyStarted = false;
@@ -95,19 +98,17 @@ public class ApiStepDefinitions {
         // Send request based on method
         switch (method.toUpperCase()) {
             case "GET":
-                apiUtils.getPostRequestWithHeadersAndBody(endpoint, headers, body);
+                response = apiUtils.getPostRequestWithHeadersAndBody(endpoint, headers, body);
                 break;
             case "POST":
-                apiUtils.sendPostRequestWithHeadersAndBody(endpoint, headers, body);
+                response = apiUtils.sendPostRequestWithHeadersAndBody(endpoint, headers, body);
                 break;
             // Add other HTTP methods as needed
             default:
                 throw new IllegalArgumentException("Unsupported HTTP method: " + method);
         }
+        scenarioContext.setContext("response", response); // Set the response in the scenario context
     }
-
-
-
 
 
     @When("I send a POST request to {string} with headers:")
@@ -129,6 +130,27 @@ public class ApiStepDefinitions {
         assertTrue(response.getBody().asString().contains(expectedContent));
     }
 
+    @Then("the response body should contain:")
+    public void verifyResponseBody(DataTable dataTable) {
+        // Convert DataTable to a single Map
+        Map<String, String> expectedData = dataTable.asMap(String.class, String.class);
+
+        // Retrieve the actual JSON response body
+        Response response = (Response) scenarioContext.getContext("response");
+        String responseBody = response.getBody().asString();
+
+        // Parse the response body using JsonPath
+        JsonPath jsonPath = new JsonPath(responseBody);
+
+        // Iterate over each entry in the expected data Map
+        expectedData.forEach((key, expectedValue) -> {
+            // Use JsonPath to extract the actual value
+            String actualValue = jsonPath.getString(key);
+
+            // Perform comparison between expected and actual values
+            assertThat(expectedValue.equals(actualValue)).isTrue();
+        });
+    }
     @Then("the response headers should contain:")
     public void verifyResponseHeaders(DataTable expectedHeadersTable) {
         Map<String, String> expectedHeaders = expectedHeadersTable.asMap(String.class, String.class);
