@@ -1,6 +1,7 @@
 package org.project.utils;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 
@@ -24,7 +25,7 @@ public class ApiUtils {
     }
 
     public Response sendGetRequest(String endpoint) {
-        var giv = given()
+        var giv = given().log().all()
                 .header("api_key", "DEFAULT_API_KEY")
                 .when();
 
@@ -33,6 +34,25 @@ public class ApiUtils {
         }
 
         lastResponse = giv.get(endpoint); // Update lastResponse with the response received
+        return lastResponse;
+    }
+
+    public Response sendPostRequestWithBody(String endpoint, Map<String, String> body) {
+         var giv = given().log().all()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .post(endpoint);
+
+        lastResponse = giv;
+        return lastResponse;
+    }
+
+    public Response sendPutRequestWithBody(String endpoint, Map<String, String> body) {
+        var giv = given().log().all()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .put(endpoint);
+        lastResponse = giv;
         return lastResponse;
     }
 
@@ -56,7 +76,7 @@ public class ApiUtils {
             mergedHeaders.putAll(headers); // Override default headers with provided headers
         }
 
-        var giv = given()
+        var giv = given().log().all()
                 .headers(headers)
                 .body(requestBody)
                 .when();
