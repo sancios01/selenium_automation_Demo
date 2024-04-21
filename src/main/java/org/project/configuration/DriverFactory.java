@@ -43,7 +43,7 @@ public class DriverFactory {
     }
 
     private static WebDriver setupDevToolsChrome() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/webdriver/chromedriver_mac64/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "src/main/resources/webdriver/chromedriver_mac64/chromedriver");
         var service = new ChromeDriverService.Builder()
                 .build();
         var driver = new ChromeDriver(service);
