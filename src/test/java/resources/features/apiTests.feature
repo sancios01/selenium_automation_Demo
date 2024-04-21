@@ -1,4 +1,5 @@
 @StopWireMock
+@Regression
 Feature: WireMock Testing
 
   Scenario: Mocking a GET request
