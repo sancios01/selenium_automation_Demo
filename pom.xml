@@ -209,8 +209,16 @@
             <version>20240205</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.11.0.3922</version>
+        </dependency>
 
-<!--        <dependency>-->
+
+
+
+        <!--        <dependency>-->
 <!--            <groupId>com.github.tomakehurst</groupId>-->
 <!--            <artifactId>wiremock</artifactId>-->
 <!--            <version>3.0.1</version>-->
@@ -236,7 +244,7 @@
                 <version>3.2.5</version>
                 <configuration>
                     <includes>
-                        <include>src/test/java/org/project/runners/CucumberRunner.java</include>
+                        <include>**/CucumberRunner.java</include>
 <!--                        <include>**/*IT.java</include> &lt;!&ndash; Include testele de integrare &ndash;&gt;-->
                     </includes>
                     <systemPropertyVariables>
